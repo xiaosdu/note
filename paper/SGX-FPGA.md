@@ -39,7 +39,7 @@ SGX-FPGA的安全部分主要包括四个组件：enclave内的用户应用，CP
 建立隔离路径需要分为两步：CPU-FPGA两者相互认证以及两者生成用于通信的密钥。这两部实质上就是将CPU TEE扩展到了FPGA上。
 ### CPU、FPGA信任建立
 
-![attestation](attestation.png "D:\code\note\pic")
+![attestation](attestation.png "./pic")
 
 SGX-FPGA采用可以在CPU和FPGA之间建立相互信任的验证机制，以保证一方确定与真实的另一方进行通信，防止攻击者创造一个恶意的实体(CPU应用或者是FPGA IP核)的复制。根据CPU和FPGA是否存在于相同的平台上，又将验证过程分为本地验证和远程验证。
 #### 本地认证
@@ -59,7 +59,7 @@ controller与SM进行相互验证后，会由PUF生成$Key_{cf}$并通过ECDH公
 在我们设计的SGX-FPGA中，我们使用PUF来生成 $Key_{cf}$，具体来说，为了生成最大数量的密钥，我们使用Arbiter PUF来生成。Arbiter PUF由两个延迟链组成，每个延迟链包括多个级联的多路选择器。这些多路选择器的选择信号是PUF的输入，也就是挑战；相应的输出被称为响应。对任意的Arbiter PUF，输入Nbit，输出为$2^N$。
 #### PUF设计和实现
 
-![Arbiter PUF](Arbiter_PUF.png "D:\code\note\pic")
+![Arbiter PUF](Arbiter_PUF.png "./pic")
 
 挑战响应对被预先存储到enclave中，为了用于FPGA的验证和密钥生成。为了PUF对现代FPGA的可重用，我们将Arbiter PUF作为IP核设计，可以直接使用vivado调用。
 
