@@ -28,7 +28,7 @@ FPGA-CPU：FPGA侧的攻击者可能会向FPGA上注入恶意IP，利用恶意IP
 FPGA-FPGA：
 # proposed solution:SGX-FPGA
 
-![outline](outline.png "D:\code\note\pic")
+![outline](outline.png "./pic/")
 
 SGX-FPGA的安全部分主要包括四个组件：enclave内的用户应用，CPU侧的CPU控制器，FPGA侧的安全监视器，FPGA侧的物理不可克隆函数。用户应用要与FPGA进行通信时，首先将数据用与CPU控制器协商的密钥进行加密后传输到CPU控制器，控制器将数据解密后再用与PUF协商的密钥加密，并传输到FPGA安全监视器，FPGA SM通过管道与FPGA核进行通信。这样，通过共享内存和PCIe时的数据总是加密的，无论是不可信应用、OS还是监视器都无法访问数据。
 
