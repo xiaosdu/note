@@ -1,0 +1,25 @@
+搭建optee时遇到的问题以及解决方案
+
+我使用Ubuntu20.04版本，VMware workstation 17 Pro
+
+安装虚拟机时，对于vmtools的安装
+报错段错误，使用sudo apt install open-vm-tools open-vm-tools-desktop进行安装。
+
+安装op-tee开发环境需要的各种依赖库
+sudo apt-get install android-tools-adb android-tools-fastboot autoconf automake bc bison build-essential cscope curl device-tree-compiler expect flex ftp-upload gdisk iasl libattr1-dev libc6:i386 libcap-dev libfdt-dev libftdi-dev libglib2.0-dev libhidapi-dev libncurses5-dev libpixman-1-dev libssl-dev libstdc++6:i386 libtool libz1:i386 make mtools netcat python-crypto python-serial python-wand unzip uuid dev xdg-utils xterm xz-utils zlib1g-dev  这是那本手机安全和可信应用开发指南中给的依赖库
+需改为
+sudo apt-get install android-tools-adb android-tools-fastboot autoconf automake bc bison build-essential cscope curl device-tree-compiler expect flex ftp-upload gdisk iasl libattr1-dev libc6:i386 libcap-dev libfdt-dev libftdi-dev libglib2.0-dev libhidapi-dev libncurses5-dev libpixman-1-dev libssl-dev libstdc++6:i386 libtool libz1:i386 make mtools netcat python-crypto python3-serial python3-wand unzip uuid build-essential xdg-utils xterm xz-utils zlib1g-dev
+
+
+repo init -u https://github.com/OP-TEE/manifest.git -m default.xml --repo-url=git://codeaurora.org/tools/repo.git -b 2.6.0
+连不上的话就去GitHub上自己下载吧https://github.com/OP-TEE/optee_client；https://github.com/OP-TEE/optee_os；https://github.com/OP-TEE/build，但最好还是推荐翻墙
+
+repo sync
+cd build 
+make toolchains -j2
+make run
+这里不可以使用sudo。如果前面下载阶段使用sudo的话需要检查文件所有用户是否为根用户，都改为普通用户，并且不能使用proxychains   https://github.com/pyenv/pyenv/issues/430
+但是有一些make run部分的下载仍然需要挂梯子。
+
+开启两个终端后，输入(qemu)c，但是在REE中没有找到optee_examples......
+to be continue
